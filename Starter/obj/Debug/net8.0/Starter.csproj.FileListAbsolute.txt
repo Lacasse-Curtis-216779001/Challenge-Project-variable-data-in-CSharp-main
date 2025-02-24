@@ -12,3 +12,4 @@ C:\Users\curti\Downloads\Challenge-Project-variable-data-in-CSharp-main\Starter\
 C:\Users\curti\Downloads\Challenge-Project-variable-data-in-CSharp-main\Starter\obj\Debug\net8.0\Starter.pdb
 C:\Users\curti\Downloads\Challenge-Project-variable-data-in-CSharp-main\Starter\obj\Debug\net8.0\Starter.genruntimeconfig.cache
 C:\Users\curti\Downloads\Challenge-Project-variable-data-in-CSharp-main\Starter\obj\Debug\net8.0\ref\Starter.dll
+C:\Users\curti\Downloads\Challenge-Project-variable-data-in-CSharp-main\Starter\obj\Debug\net8.0\Starter.sourcelink.json

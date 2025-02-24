@@ -153,11 +153,11 @@ do
             }
             Array.Sort(dogSearches);
 
-            bool noMatchesDog = true;
+            bool matchesAnyDog = false;
             string dogDescription = "";
             
             // #4 update to "rotating" animation with countdown
-            string[] searchingIcons = {".  ", ".. ", "..."};
+            string[] searchingIcons = {" |", " /", "--", " \\", " *"};
 
             // loop ourAnimals array to search for matching animals
             for (int i = 0; i < maxPets; i++)
@@ -167,40 +167,51 @@ do
                 {
                     
                     // Search combined descriptions and report results
-                    dogDescription = ourAnimals[i, 4] + "\r\n" + ourAnimals[i, 5];
+                    dogDescription = ourAnimals[i, 4] + "\n" + ourAnimals[i, 5];
+                    bool matchesCurrentDog = false;
                     
-                    for (int j = 5; j > -1 ; j--)
-                    {
-                    // #5 update "searching" message to show countdown 
-                        foreach (string icon in searchingIcons)
-                        {
-                            Console.Write($"\rsearching our dog {ourAnimals[i, 3]} for {dogCharacteristic} {icon}");
-                            Thread.Sleep(250);
+                    foreach (string term in dogSearches){
+                        if(term != null && term.Trim() != ""){
+                            for (int j = 2; j > -1 ; j--)
+                            {
+                                // #5 update "searching" message to show countdown
+                                foreach (string icon in searchingIcons)
+                                {
+                                    Console.Write($"\rsearching our dog {ourAnimals[i, 3]} for {term.Trim()} {icon} {j.ToString()}");
+                                    Thread.Sleep(100);
+                                }
+                                
+                                Console.Write($"\r{new String(' ', Console.BufferWidth)}");
+                            }
+                            // #3a iterate submitted characteristic terms and search description for each term
+                    
+                            if (dogDescription.Contains(" " + term.Trim() + " "))
+                            {
+                                // #3b update message to reflect term 
+                                Console.WriteLine($"\rOur dog {ourAnimals[i, 3]} matches your search for {term.Trim()}");
+
+                                matchesCurrentDog = true;
+                                matchesAnyDog = true;
+
+                            
+                            }
+
                         }
-                        
-                        Console.Write($"\r{new String(' ', Console.BufferWidth)}");
+                    
                     }
                     
-                    // #3a iterate submitted characteristic terms and search description for each term
-                    
-                    if (dogDescription.Contains(dogCharacteristic))
-                    {
-                        // #3b update message to reflect term 
-                        // #3c set a flag "this dog" is a match
-                        Console.WriteLine($"\nOur dog {ourAnimals[i, 3]} is a match!");
-
-                        noMatchesDog = false;
+                    if(matchesCurrentDog){
+                        Console.WriteLine($"\r{ourAnimals[i, 3]} ({ourAnimals[i, 0]})\n{dogDescription}\n");
                     }
 
                     // #3d if "this dog" is match write match message + dog description
                 }
             }
 
-            if (noMatchesDog)
+            if (!matchesAnyDog)
             {
-                Console.WriteLine("None of our dogs are a match found for: " + dogCharacteristic);
+                Console.WriteLine("None of our dogs was a match for: " + dogCharacteristic);
             }
-
             Console.WriteLine("\n\rPress the Enter key to continue");
             readResult = Console.ReadLine();
 
